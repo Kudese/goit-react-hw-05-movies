@@ -9,8 +9,8 @@ export default function PostMovie({ APIKEY }) {
   const location= useLocation()
   const [backUrl,setBackUrl] =useState()
   
-  console.log(location.state.pathname    )
-   console.log(location.state.search )
+  console.log(location.state?.pathname )
+   console.log(location.state?.search )
   const fetch = useCallback(async () => {
     try {
       const post = await axios.get(
@@ -22,8 +22,8 @@ export default function PostMovie({ APIKEY }) {
     }
   }, [APIKEY, urlData]);
 useEffect(()=>{
-  setBackUrl(location.state.pathname +location.state.search)
-},[location.state.pathname, location.state.search])
+  setBackUrl(location.state?.pathname +location.state?.search)
+},[location.state?.pathname, location.state?.search])
   useEffect(() => {
     fetch();
   }, [fetch]);
