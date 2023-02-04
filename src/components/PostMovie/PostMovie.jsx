@@ -1,12 +1,16 @@
 import axios from 'axios';
 import Loader from 'components/Loader/Loader';
 import { useState, useCallback, useEffect } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import s from '../PostMovie/PostMovie.module.css';
-export default function PostMovie({ APIKEY, from }) {
+export default function PostMovie({ APIKEY }) {
   const urlData = useParams();
   const [aboutMovie, setPost] = useState();
-  console.log(from)
+  const location= useLocation()
+  const [backUrl,setBackUrl] =useState()
+  
+  console.log(location.state.pathname    )
+   console.log(location.state.search )
   const fetch = useCallback(async () => {
     try {
       const post = await axios.get(
@@ -17,11 +21,13 @@ export default function PostMovie({ APIKEY, from }) {
       alert('Ouupss');
     }
   }, [APIKEY, urlData]);
-
+useEffect(()=>{
+  setBackUrl(location.state.pathname +location.state.search)
+},[location.state.pathname, location.state.search])
   useEffect(() => {
     fetch();
   }, [fetch]);
-
+console.log(backUrl)
   const data = aboutMovie?.data;
   const geners = () => {
     return data.genres
@@ -35,7 +41,7 @@ export default function PostMovie({ APIKEY, from }) {
     <Loader />
   ) : (
     <div className={s.section}>
-      <Link to="/">Go back</Link>
+      <Link to={backUrl}>Go back</Link>
       <div>
         <img
           src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`}

@@ -23,7 +23,7 @@ export default function TrendingToday({ APIKEY }) {
   return (
     <ul>
       {list?.results.map(el => {
-        return <li key={el.id}><Link to={`movie/${el.id}`} state={{from:location}} >{el.title || el.original_title || el.name}</Link> </li>;
+        return <li key={el.id}><Link to={`movie/${el.id}`} state={location} >{el.title || el.original_title || el.name}</Link> </li>;
       })}
     </ul>
   );

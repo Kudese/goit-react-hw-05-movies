@@ -9,7 +9,7 @@ export default function Movie({ APIKEY,  }) {
   const searchQuevery = searchParams.get('search') ?? '';
   const [inputSearch, setInptSearch] = useState( searchQuevery??'');
   const location = useLocation()
-  console.log(location)
+
   const handleSubmit = event => {
     event.preventDefault();
     setSearchParams({ search: event.target.search.value });
@@ -48,7 +48,7 @@ export default function Movie({ APIKEY,  }) {
         {list.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={movie.id + ''} state={[1,2,3]}>
+              <Link to={movie.id + ''} state={location}>
                 {movie.title || movie.original_title || movie.name}
               </Link>
             </li>
