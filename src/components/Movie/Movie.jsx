@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect } from 'react';
-
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 export default function Movie({ APIKEY }) {
@@ -15,7 +14,7 @@ export default function Movie({ APIKEY }) {
     setSearch('');
   };
  
-  const fetch = async () => {
+  const fetch = useCallback(async () => {
     try {
       const list = await axios.get(
         `https://api.themoviedb.org/3/search/movie?api_key=${APIKEY}&language=en-US&query=${search}&page=${page}&include_adult=false`
@@ -24,16 +23,15 @@ export default function Movie({ APIKEY }) {
       setList(list.data?.results);
       setSearchParams({ search });
     } catch (error) {
-        console.log(search)
       alert('Ouupss');
     }
-  }
+  },[APIKEY, page, search, setSearchParams])
 useEffect(()=>{
     if(search!==""){
       fetch()
       setSearch('')
    }
-},[])
+},[search,fetch])
 
 
   
