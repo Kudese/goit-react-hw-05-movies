@@ -1,0 +1,13 @@
+.button{
+    
+    margin: 5px;
+    font-size: 20px;
+}
+.header{
+    padding: 10px;
+    width: 1200px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid black;
+}
