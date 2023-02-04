@@ -3,10 +3,10 @@ import Loader from 'components/Loader/Loader';
 import { useState, useCallback, useEffect } from 'react';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import s from '../PostMovie/PostMovie.module.css';
-export default function PostMovie({ APIKEY }) {
+export default function PostMovie({ APIKEY, from }) {
   const urlData = useParams();
   const [aboutMovie, setPost] = useState();
-
+  console.log(from)
   const fetch = useCallback(async () => {
     try {
       const post = await axios.get(

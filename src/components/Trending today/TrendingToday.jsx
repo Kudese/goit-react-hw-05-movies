@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link, } from 'react-router-dom';
+import { Link, useLocation, } from 'react-router-dom';
 import { useCallback } from 'react';
 
 export default function TrendingToday({ APIKEY }) {
   const [list, setList] = useState();
-
+ const location = useLocation()
   const fetch = useCallback(async () => {
     try {
       const list = await axios.get(
@@ -23,7 +23,7 @@ export default function TrendingToday({ APIKEY }) {
   return (
     <ul>
       {list?.results.map(el => {
-        return <li key={el.id}><Link to={`movie/${el.id}`} >{el.title || el.original_title || el.name}</Link> </li>;
+        return <li key={el.id}><Link to={`movie/${el.id}`} state={{from:location}} >{el.title || el.original_title || el.name}</Link> </li>;
       })}
     </ul>
   );

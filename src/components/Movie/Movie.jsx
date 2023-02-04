@@ -1,46 +1,35 @@
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useState, useCallback } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
-export default function Movie({ APIKEY }) {
-    const [page, setPage] = useState(1);
-    const [list, setList] = useState([]);
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [search, setSearch] = useState( searchParams.get("search")??'');
+export default function Movie({ APIKEY,  }) {
+  const [list, setList] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuevery = searchParams.get('search') ?? '';
+  const [inputSearch, setInptSearch] = useState( searchQuevery??'');
+  const location = useLocation()
+  console.log(location)
   const handleSubmit = event => {
-    
     event.preventDefault();
-    fetch();
-    setSearch('');
+    setSearchParams({ search: event.target.search.value });
   };
- 
-  const fetch = useCallback(async () => {
-    try {
-      const list = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${APIKEY}&language=en-US&query=${search}&page=${page}&include_adult=false`
-      );
 
-      setList(list.data?.results);
-      setSearchParams({ search });
-    } catch (error) {
-      alert('Ouupss');
+  useEffect(() => {
+    if (searchQuevery) {
+      const fetch = async () => {
+        const list = await axios.get(
+          `https://api.themoviedb.org/3/search/movie?api_key=${APIKEY}&language=en-US&query=${searchQuevery}&page=1&include_adult=false`
+        );
+        setList(list.data.results);
+      };
+      fetch();
     }
-  },[APIKEY, page, setSearchParams])
-useEffect(()=>{
-    if(search!==""){
-      fetch()
-      setSearch('')
-   }
-},[search,fetch])
+  }, [APIKEY, searchQuevery]);
 
-
-  
   const hendleChangeInput = event => {
-    setSearch(event.target.value);
+    setInptSearch(event.target.value);
   };
-  
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -50,7 +39,7 @@ useEffect(()=>{
             name="search"
             type="text"
             onChange={hendleChangeInput}
-            value={search}
+            value={inputSearch}
           />
         </label>
         <button type="submit">Find</button>
@@ -59,7 +48,7 @@ useEffect(()=>{
         {list.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={movie.id + ''}>
+              <Link to={movie.id + ''} state={[1,2,3]}>
                 {movie.title || movie.original_title || movie.name}
               </Link>
             </li>
