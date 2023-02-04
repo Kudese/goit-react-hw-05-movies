@@ -1,14 +1,15 @@
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
-export default function Movie({ APIKEY,  }) {
+export default function Movie({ APIKEY }) {
   const [list, setList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const searchQuevery = searchParams.get('search') ?? '';
-  const [inputSearch, setInptSearch] = useState( searchQuevery??'');
-  const location = useLocation()
+  const [inputSearch, setInptSearch] = useState(searchQuevery ?? '');
+  const location = useLocation();
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -48,7 +49,7 @@ export default function Movie({ APIKEY,  }) {
         {list.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={movie.id + ''} state={location}>
+              <Link to={movie.id + ''} state={{ from: location }}>
                 {movie.title || movie.original_title || movie.name}
               </Link>
             </li>
@@ -58,3 +59,7 @@ export default function Movie({ APIKEY,  }) {
     </div>
   );
 }
+
+Movie.propTypes = {
+  APIKEY: PropTypes.string.isRequired,
+};

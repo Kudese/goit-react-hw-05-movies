@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
@@ -6,7 +7,6 @@ import { useEffect } from 'react';
 export default function Cast({ APIKEY }) {
   const { moveId } = useParams();
   const [cast, setCast] = useState();
-
 
   const fetch = useCallback(async () => {
     try {
@@ -27,7 +27,7 @@ export default function Cast({ APIKEY }) {
       <ul>
         {cast?.data.cast.map(person => {
           return (
-            <li key={person.credit_id} >
+            <li key={person.credit_id}>
               <img
                 src={`https://image.tmdb.org/t/p/w500/${person.profile_path}`}
                 alt=""
@@ -40,4 +40,7 @@ export default function Cast({ APIKEY }) {
       </ul>
     </div>
   );
+}
+Cast.propTypes={
+  APIKEY: PropTypes.string.isRequired,
 }
