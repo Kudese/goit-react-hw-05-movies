@@ -9,6 +9,7 @@ export default function Movie({ APIKEY }) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [search, setSearch] = useState( searchParams.get("search")??'');
   const handleSubmit = event => {
+    
     event.preventDefault();
     fetch();
     setSearch('');
@@ -25,7 +26,7 @@ export default function Movie({ APIKEY }) {
     } catch (error) {
       alert('Ouupss');
     }
-  },[APIKEY, page, search, setSearchParams])
+  },[APIKEY, page, setSearchParams])
 useEffect(()=>{
     if(search!==""){
       fetch()
