@@ -1,5 +1,5 @@
 import axios from 'axios';
-import PropTypes from 'prop-types';
+
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
@@ -20,7 +20,7 @@ export default function Movie({ APIKEY }) {
     if (searchQuevery) {
       const fetch = async () => {
         const list = await axios.get(
-          `https://api.themoviedb.org/3/search/movie?api_key=${APIKEY}&language=en-US&query=${searchQuevery}&page=1&include_adult=false`
+          `https://api.themoviedb.org/3/search/movie?api_key=5a95e7192d9f2e90992b52e155d78e04&language=en-US&query=${searchQuevery}&page=1&include_adult=false`
         );
         setList(list.data.results);
       };
@@ -60,6 +60,3 @@ export default function Movie({ APIKEY }) {
   );
 }
 
-Movie.propTypes = {
-  APIKEY: PropTypes.string.isRequired,
-};

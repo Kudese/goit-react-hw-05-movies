@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useCallback } from 'react';
 import axios from 'axios';
 import { useState } from 'react';
@@ -14,13 +13,13 @@ export default function Reviews({ APIKEY }) {
   const fetch = useCallback(async () => {
     try {
       const reviews = await axios.get(
-        `https://api.themoviedb.org/3/movie/${moveId}/reviews?api_key=${APIKEY}&language=en-US&page=${page}`
+        `https://api.themoviedb.org/3/movie/${moveId}/reviews?api_key=5a95e7192d9f2e90992b52e155d78e04&language=en-US&page=${page}`
       );
       setReviews(() => reviews);
     } catch (error) {
       alert('Ouupss');
     }
-  }, [moveId, APIKEY, page]);
+  }, [moveId, page]);
   useEffect(() => {
     fetch();
   }, [fetch]);
@@ -48,6 +47,3 @@ export default function Reviews({ APIKEY }) {
     </div>
   );
 }
-Reviews.propTypes = {
-  APIKEY: PropTypes.string.isRequired,
-};

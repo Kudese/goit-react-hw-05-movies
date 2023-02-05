@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
@@ -10,13 +10,13 @@ export default function TrendingToday({ APIKEY }) {
   const fetch = useCallback(async () => {
     try {
       const list = await axios.get(
-        `https://api.themoviedb.org/3/trending/all/day?api_key=${APIKEY}`
+        `https://api.themoviedb.org/3/trending/all/day?api_key=5a95e7192d9f2e90992b52e155d78e04`
       );
       await setList(list.data);
     } catch (error) {
       alert('Ouups');
     }
-  }, [APIKEY]);
+  },[]);
   useEffect(() => {
     fetch();
   }, [fetch]);
@@ -35,6 +35,3 @@ export default function TrendingToday({ APIKEY }) {
   );
 }
 
-TrendingToday.propTypes = {
-  APIKEY: PropTypes.string.isRequired,
-};

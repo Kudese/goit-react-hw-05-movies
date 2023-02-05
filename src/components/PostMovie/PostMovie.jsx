@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+
 import axios from 'axios';
 import Loader from 'components/Loader/Loader';
 import { useState, useCallback, useEffect, Suspense } from 'react';
@@ -12,13 +12,13 @@ export default function PostMovie({ APIKEY }) {
   const fetch = useCallback(async () => {
     try {
       const post = await axios.get(
-        `https://api.themoviedb.org/3/movie/${urlData.moveId}?api_key=${APIKEY}&language=en-US`
+        `https://api.themoviedb.org/3/movie/${urlData.moveId}?api_key=5a95e7192d9f2e90992b52e155d78e04&language=en-US`
       );
       setPost(post);
     } catch (error) {
       alert('Ouupss');
     }
-  }, [APIKEY, urlData]);
+  }, [urlData]);
 
   useEffect(() => {
     fetch();
@@ -32,7 +32,6 @@ export default function PostMovie({ APIKEY }) {
       })
       .join(', ');
   };
-  console.log(location);
   return (
     data && (
       <div className={s.section}>
@@ -79,6 +78,3 @@ export default function PostMovie({ APIKEY }) {
     )
   );
 }
-PostMovie.propTypes = {
-  APIKEY: PropTypes.string.isRequired,
-};

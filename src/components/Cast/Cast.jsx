@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
@@ -11,13 +10,13 @@ export default function Cast({ APIKEY }) {
   const fetch = useCallback(async () => {
     try {
       const cast = await axios.get(
-        `https://api.themoviedb.org/3/movie/${moveId}/credits?api_key=${APIKEY}&language=en-US`
+        `https://api.themoviedb.org/3/movie/${moveId}/credits?api_key=5a95e7192d9f2e90992b52e155d78e04&language=en-US`
       );
       setCast(cast);
     } catch (error) {
       alert('Ouupss');
     }
-  }, [moveId, APIKEY]);
+  }, [moveId]);
   useEffect(() => {
     fetch();
   }, [fetch]);
@@ -40,7 +39,4 @@ export default function Cast({ APIKEY }) {
       </ul>
     </div>
   );
-}
-Cast.propTypes={
-  APIKEY: PropTypes.string.isRequired,
 }
